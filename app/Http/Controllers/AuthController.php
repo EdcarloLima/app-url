@@ -9,11 +9,11 @@ class AuthController extends Controller
 {
     public function login(LoginRequest $request)
     {
-        /*try {*/
+        try {
             $input = $request->validated();
-            dd($input);
+
             $credentials = [
-                'email' => $input['email'],
+                'email'    => $input['email'],
                 'password' => $input['password']
             ];
 
@@ -26,8 +26,9 @@ class AuthController extends Controller
                 'token_type' => 'bearer',
                 'expires_in' => auth()->factory()->getTTL() * 60
             ]);
-        /*} catch (\Throwable $error) {
+
+        } catch (\Throwable $error) {
             return response()->json(['error' => 'Erro interno do servidor.'], 500);
-        }*/
+        }
     }
 }

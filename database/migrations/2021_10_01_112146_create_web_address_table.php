@@ -13,7 +13,7 @@ class CreateWebAddressTable extends Migration
      */
     public function up()
     {
-        Schema::table('web_address', function (Blueprint $table) {
+        Schema::create('web_address', function (Blueprint $table) {
             $table->unsignedBigInteger('id',true);
             $table->string('url',200)->unique();
             $table->unsignedTinyInteger('status_code')->default(0);

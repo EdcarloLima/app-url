@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class LoginRequest extends FormRequest
+class WebAddressRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,10 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'email'    => 'required|email',
-            'password' => 'required|string'
+            'url'         => 'required|url|unique:web_address|max:200',
+            'status_code' => 'integer|nullable',
+            'visible'     => 'boolean',
+            'content'     => 'file|nullable'
         ];
     }
 
@@ -37,10 +39,10 @@ class LoginRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'email.required'    => 'Informe o e-mail',
-            'email.email'       => 'Informe um e-mail válido',
-            'password.required' => 'Informe a senha',
-            'password.string'   => 'Informe a senha no formato de string'
+            'url.required' => 'Informe a url',
+            'url.url'      => 'Informe uma url válida',
+            'url.unique'   => 'URL já cadastrada',
+            'url.max'      => 'Limite máximo de 200 caracteres'
         ];
     }
 }

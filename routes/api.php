@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\{AuthController,WebAddressController};
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +15,15 @@ use App\Http\Controllers\AuthController;
 |
 */
 
-Route::post('login', [AuthController::class, 'login']);
+Route::post('login',    [AuthController::class, 'login']);
+
+Route::middleware('auth:api')->prefix('web-addresses')->group(function() {
+    Route::get('/',        [WebAddressController::class, 'index']);
+    Route::post('/',       [WebAddressController::class, 'store']);
+    Route::get('/{id}',    [WebAddressController::class, 'show']);
+    Route::put('/{id}',    [WebAddressController::class, 'update']);
+    Route::delete('/{id}', [WebAddressController::class, 'destroy']);
+});
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

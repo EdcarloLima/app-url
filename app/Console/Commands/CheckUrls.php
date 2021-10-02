@@ -68,7 +68,7 @@ class CheckUrls extends Command
 
         } catch (\Throwable $error) {
             $className = (new \ReflectionClass(get_class()))->getShortName();
-            Wizard::createLog($className,$error);
+            self::createLog($className,$error);
         }
     }
 

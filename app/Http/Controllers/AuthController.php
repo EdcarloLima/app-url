@@ -2,11 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Wizard;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
+    use Wizard;
+
+    /**
+     * Authenticate user with credentials
+     *
+     * @param LoginRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function login(LoginRequest $request)
     {
         try {
@@ -28,6 +37,8 @@ class AuthController extends Controller
             ]);
 
         } catch (\Throwable $error) {
+            $className = (new \ReflectionClass(get_class()))->getShortName();
+            self::createLog($className,$error);
             return response()->json(['error' => 'Erro interno do servidor.'], 500);
         }
     }

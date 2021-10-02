@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{AuthController,WebAddressController};
 
@@ -23,8 +22,4 @@ Route::middleware('auth:api')->prefix('web-addresses')->group(function() {
     Route::get('/{id}',    [WebAddressController::class, 'show']);
     Route::put('/{id}',    [WebAddressController::class, 'update']);
     Route::delete('/{id}', [WebAddressController::class, 'destroy']);
-});
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
 });
